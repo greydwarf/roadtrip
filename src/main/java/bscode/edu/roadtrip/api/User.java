@@ -3,6 +3,8 @@ package bscode.edu.roadtrip.api;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table(name = "users")
@@ -16,6 +18,13 @@ public class User {
 
     @ManyToOne
     private Playlist selectedPlaylist;
+
+    @ManyToMany
+    @JoinTable(
+        name="users_playlists",
+        joinColumns = {@JoinColumn(name="user_id")},
+        inverseJoinColumns= {@JoinColumn(name="playlist_id")})
+    private List<Playlist> allPlaylists;
 
     protected User() {}
 

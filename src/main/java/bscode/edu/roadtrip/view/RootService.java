@@ -19,9 +19,9 @@ public class RootService {
     void prepareIndex(OAuth2User principal, ModelAndView mav) {
         Optional<User> maybeUser = userRepo.findById(principal.getName());
         User user = maybeUser.orElseGet(() -> addUser(principal));
-        var playlists = playlistRepo.findByEditor(user);
+        var playlists = user.getAllPlaylists();
         mav.addObject("user", user);
-        mav.addObject("playlists", playlists);
+//        mav.addObject("playlists", playlists);
     }
 
     private User addUser(OAuth2User principal) {
